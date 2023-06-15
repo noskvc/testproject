@@ -1,0 +1,153 @@
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Rain-Design/PPHUD/main/Library.lua'))()
+local Flags = Library.Flags
+
+local Window = Library:Window({
+   Text = "Baseplate"
+})
+
+local Tab = Window:Tab({
+   Text = "Aiming"
+})
+
+local Tab2 = Window:Tab({
+   Text = "Visual"
+})
+
+local Section = Tab:Section({
+   Text = "Aiming"
+})
+
+local Section2 = Tab:Section({
+   Text = "Anti-Aim"
+})
+
+local Section3 = Tab:Section({
+   Text = "Ragebot",
+   Side = "Right"
+})
+
+local aimbotEnabled = false -- Aimbot toggle
+
+Section:Check({
+   Text = "Aimbot",
+   Flag = "Aimbot",
+   Callback = function(bool)
+       aimbotEnabled = bool
+       if aimbotEnabled then
+           warn("Aimbot enabled")
+       else
+           warn("Aimbot disabled")
+       end
+   end
+})
+
+Section:Check({
+   Text = "Silent-Aim",
+   Callback = function(bool)
+       warn("Silent-Aim: " .. tostring(bool))
+   end
+})
+
+Section:Dropdown({
+   Text = "Body Part",
+   List = {"Head", "Torso", "Random"},
+   Callback = function(opt)
+       warn("Selected Body Part: " .. opt)
+   end
+})
+
+Section:Slider({
+   Text = "Hit Chance",
+   Minimum = 0,
+   Default = 60,
+   Maximum = 100,
+   Postfix = "%",
+   Callback = function(n)
+       warn("Hit Chance: " .. tostring(n) .. "%")
+   end
+})
+
+Section:Button({
+   Text = "Spawn",
+   Callback = function()
+       warn("Settings Reset")
+   end
+})
+
+Section2:Check({
+   Text = "Spin",
+   Callback = function(bool)
+       warn("Spin: " .. tostring(bool))
+   end
+})
+
+Section2:Slider({
+   Text = "Pitch Offset",
+   Minimum = 100,
+   Default = 150,
+   Maximum = 500,
+   Callback = function(n)
+       warn("Pitch Offset: " .. tostring(n))
+   end
+})
+
+Section2:Slider({
+   Text = "Yaw Offset",
+   Minimum = 100,
+   Default = 150,
+   Maximum = 500,
+   Callback = function(n)
+       warn("Yaw Offset: " .. tostring(n))
+   end
+})
+
+Section2:Button({
+   Text = "Resolve Positions",
+   Callback = function()
+       warn("Resolving Positions")
+   end
+})
+
+Section3:Check({
+   Text = "Auto-Wall",
+   Callback = function(bool)
+       warn("Auto-Wall: " .. tostring(bool))
+   end
+})
+
+Section3:Check({
+   Text = "Trigger Bot",
+   Callback = function(bool)
+       warn("Trigger Bot: " .. tostring(bool))
+   end
+})
+
+Section3:Check({
+   Text = "Insta-Kill",
+   Callback = function(bool)
+       warn("Insta-Kill: " .. tostring(bool))
+   end
+})
+
+Section3:Dropdown({
+   Text = "Hitscan Directions",
+   List = {"Left", "Right", "Up", "Down", "All"},
+   Callback = function(opt)
+       warn("Hitscan Directions: " .. opt)
+   end
+})
+
+Section3:Label({
+   Text = "Status: Undetected",
+   Color = Color3.fromRGB(100, 190, 31)
+})
+
+-- Aimbot logic
+game:GetService("RunService").RenderStepped:Connect(function()
+   if aimbotEnabled then
+       -- Your aimbot logic goes here
+       -- ...
+   end
+end)
+
+Tab:Select()
